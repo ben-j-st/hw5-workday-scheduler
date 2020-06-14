@@ -64,23 +64,26 @@ $(document).ready(function () {
 
             // append div to container
             $(".container").append($div);
+
             // append h3, textarea & btn to div by id
-            $($div).append($heading, $textArea, $newBtn)
+            $($div).append($heading, $textArea, $newBtn);
         })        
     }
     createContent()
 
     var saveSchedule = function() {
+       
         console.log("i was saved");
-        console.log("i was pushed by the " + "(time)" + " button");
+        // event.srcElement.id used for targeting what button was pushed.
+        console.log("i was pushed by the " + event.srcElement.id + " button");
 
         // sends the dateObject to local storage as a string
         // localStorage.setItem("datObject", JSON.stringify(dateObject)) || [];
     };
 
 
-    // click event on the document targeting buttons with the class of .timeButton
-    $(document).on("click", ".timeButton", saveSchedule);
+    // click event on the document targeting buttons with the class of .saveButton
+    $(document).on("click", ".saveBtn", saveSchedule);
 
     // gets data from local storage and turns back into an object
     // localStorage.getItem("dataObject", JSON.parse(dateObject));
