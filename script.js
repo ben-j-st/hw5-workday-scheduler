@@ -105,8 +105,6 @@ $(document).ready(function () {
 
     // gets data from local storage and turns back into an object
     // localStorage.getItem("dataObject", JSON.parse(dateObject));
-
-
    
 
     // function to set background color
