@@ -17,24 +17,39 @@ $(document).ready(function () {
     // };
     var timeList = ["9AM", "10AM", "11AM", "12PM", "1PM", "2PM", "3PM", "4PM", "5PM"];
 
+    var currentDay = moment().format('dddd');
+    $("#currentDay").text(currentDay);
+
+    var currentHour = moment().format('H');
+    
+    // function for updating clock
+    var updatingTime = function() {
+        $("#currentTime").text(moment().format('LTS'));
+    }
+    // interval responsible for running updatingTime function
+    setInterval(updatingTime, 1000);
+
+
+    var settingID = 9;
+
     var createContent = function() {
         timeList.forEach(function(value) {
             // console.log(value);
-
-            // creating a div ID by using value and tag type
-            var divID = value + " div"
 
             // creating a heading id by using value and the tag type
             var headingID = value + " H5";
             // console.log(headingID);
 
             //creating a textarea id by using value and tag type
-            var textID = value + " textarea" ;
+            // var textID = value + " textarea" ;
             // console.log(textID);
 
             // creating a btn id using value and tag type
             var btnID = value + " btn";
             // console.log(btnID);
+
+            // creating the variable for saveSymbol
+            var $saveSymbol = $("<i class='far fa-save'></i>"); 
 
             // creating a div which acts as a row - object style
             var $div = $("<div>", {
@@ -49,17 +64,17 @@ $(document).ready(function () {
                 text: value,
             });
 
-            // create a textarea - object style
+            // create a textarea - object style - id is just a number for time checks
             var $textArea = $("<textarea>", {
                 class: "col-8 textArea",
-                id: textID,
+                id: settingID,
             });
 
             // creat a btn - object style
             var $newBtn = $("<button>", {
                 class: "col-2 saveBtn",
                 id: btnID,
-                text: "Save Schedule",
+                html: $saveSymbol,
             });
 
             // append div to container
@@ -67,6 +82,9 @@ $(document).ready(function () {
 
             // append h3, textarea & btn to div by id
             $($div).append($heading, $textArea, $newBtn);
+
+            // iterating settingID by 1 to match time to each div 
+            settingID++
         })        
     }
     createContent()
@@ -88,4 +106,44 @@ $(document).ready(function () {
     // gets data from local storage and turns back into an object
     // localStorage.getItem("dataObject", JSON.parse(dateObject));
 
+
+   
+
+    // function to set background color
+    var setColor = function(element, color){
+        element.style.backgroundColor = color;
+    }
+    
+    // create an array from a search result
+    var textSearch = $(".textArea");
+
+    // turning the jquery search into an array
+    var textArray = Array.from(textSearch);
+
+    // looping through the array to make if checks
+   textArray.forEach(element => {
+
+        var textIDString = element.id;
+        var textHour = 0;
+  
+        if (textIDString) {
+              textHour = parseInt(textIDString);
+        }
+  
+        console.log("the textbox id is " + textHour);
+        console.log("the current hour is " + currentHour);
+        if (textHour) {
+            //compare the current hour and sets color
+            if (currentHour == textHour) {
+                setColor(element, "red");
+            } else if (currentHour < textHour) {
+                setColor(element, "green");
+            } else if (currentHour > textHour) {
+                setColor(element, "lightGrey");
+            } else {
+                return
+            };
+        };
+
+    })
 });
