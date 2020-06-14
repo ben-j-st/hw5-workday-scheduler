@@ -124,15 +124,19 @@ $(document).ready(function () {
    textArray.forEach(element => {
 
         var textIDString = element.id;
-        var textHour = 0;
-  
-        if (textIDString) {
-              textHour = parseInt(textIDString);
-        }
-  
-        console.log("the textbox id is " + textHour);
+        var textHour = parseInt(textIDString);
+      
+        // can be deleted later
+        // if (textIDString) {
+        //       textHour = parseInt(textIDString);
+        // }
+        
+        // check to see what the textArea id is & the current Hour
+        console.log("the textarea id is " + textHour);
         console.log("the current hour is " + currentHour);
-        if (textHour) {
+
+        // remove commented out sections later if still working 
+        // if (textHour) {
             //compare the current hour and sets color
             if (currentHour == textHour) {
                 setColor(element, "red");
@@ -143,7 +147,7 @@ $(document).ready(function () {
             } else {
                 return
             };
-        };
+        // };
 
     })
 });
