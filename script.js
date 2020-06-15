@@ -1,20 +1,5 @@
 $(document).ready(function () {
 
-
-    // var dateObject = {
-    //     date: "dd-mm-yy",
-    //     dayPlanner: {
-    //         nineAM: "9am",
-    //         tenAM: "10am",
-    //         elevenAM: "11am",
-    //         twelvePM: "12pm,",
-    //         onePM: "onepm",
-    //         twoPM: "twopm",
-    //         threePM: "threepm",
-    //         fourPM: "fourpm",
-    //         fivePM: "fivepm",
-    //     }
-    // };
     var timeList = ["9AM", "10AM", "11AM", "12PM", "1PM", "2PM", "3PM", "4PM", "5PM"];
 
     var currentDay = moment().format('dddd');
@@ -89,19 +74,8 @@ $(document).ready(function () {
     }
     createContent()
 
-    var saveSchedule = function() {
-       
-        console.log("i was saved");
-        // event.srcElement.id used for targeting what button was pushed.
-        console.log("i was pushed by the " + event.srcElement.id + " button");
-
-        // sends the dateObject to local storage as a string
-        // localStorage.setItem("datObject", JSON.stringify(dateObject)) || [];
-    };
-
-
-    // click event on the document targeting buttons with the class of .saveButton
-    $(document).on("click", ".saveBtn", saveSchedule);
+    
+   
 
     // gets data from local storage and turns back into an object
     // localStorage.getItem("dataObject", JSON.parse(dateObject));
@@ -130,8 +104,8 @@ $(document).ready(function () {
         // }
         
         // check to see what the textArea id is & the current Hour
-        console.log("the textarea id is " + textHour);
-        console.log("the current hour is " + currentHour);
+        // console.log("the textarea id is " + textHour);
+        // console.log("the current hour is " + currentHour);
 
         // remove commented out sections later if still working 
         // if (textHour) {
@@ -148,4 +122,67 @@ $(document).ready(function () {
         // };
 
     })
+    
+    var saveSchedule = function() {
+        
+        // // using an array to search for empty values
+        //     textArray.forEach(element => {
+        //         var testString = element.value;
+        //         if(testString === "") {
+        //             console.log("this element " + element.id + " was empty")
+        //         } else {
+        //             console.log("this element " + element.id + " had some text in it ")
+        //         }
+        //     })
+        
+       
+
+        var $9amString = $("#9").val()
+        var $10amString = $("#10").val()
+        var $11amString = $("#11").val()
+        var $12pmString = $("#12").val()
+        var $1pmString = $("#13").val()
+        var $2pmString = $("#14").val()
+        var $3pmString = $("#15").val()
+        var $4pmString = $("#16").val()
+        var $5pmString = $("#17").val()
+
+        var  dayPlanner = {
+            nineAM: $9amString,
+            tenAM: $10amString,
+            elevenAM: $11amString,
+            twelvePM: $12pmString,
+            onePM: $1pmString,
+            twoPM: $2pmString,
+            threePM: $3pmString,
+            fourPM: $4pmString,
+            fivePM: $5pmString,
+        };
+
+            // sends the dateObject to local storage as a string
+            localStorage.setItem("dayPlanner", JSON.stringify(dayPlanner)) || [];
+        };
+    
+        
+        var populatePlanner = function() {
+           var oldData = JSON.parse(window.localStorage.getItem("dayPlanner")) || []; 
+           console.log("i pulled data from local storage")
+           console.log(oldData);
+            
+           $("#9").val(oldData.nineAM);
+           $("#10").text(oldData.tenAM);
+           $("#11").text(oldData.elevenAM);
+           $("#12").val(oldData.twelvePM);
+           $("#13").text(oldData.onePM);
+           $("#14").text(oldData.twoPM);
+           $("#15").text(oldData.threePM);
+           $("#16").text(oldData.fourPM);
+           $("#17").text(oldData.fivePM);
+
+        }
+
+        populatePlanner();
+
+        // click event on the document targeting buttons with the class of .saveButton
+        $(document).on("click", ".saveBtn", saveSchedule);
 });
